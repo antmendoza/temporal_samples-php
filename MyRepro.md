@@ -13,3 +13,8 @@
 - docker compose up
 
 - tctl workflow signal --workflow_id my-php-signal --name addName --input \"signal2\"
+
+./rr serve -c .rr.yaml
+
+for x in {1..100}; do tctl workflow start --tq "default" --wt "Parent.greet"; done
+
