@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Temporal\Samples\Child;
 
+use Carbon\CarbonInterval;
 use Temporal\Workflow;
 
 /**
@@ -18,12 +19,15 @@ use Temporal\Workflow;
  */
 class ParentWorkflow implements ParentWorkflowInterface
 {
-    public function greet(string $name)
+    public function greet()
     {
+
+        $name = Workflow::getInfo()->execution->getID();
+
+        yield Workflow::timer(CarbonInterval::seconds(5));
+
         $child = Workflow::newChildWorkflowStub(ChildWorkflow::class);
 
-        // This is a non blocking call that returns immediately.
-        // Use yield $child->greet(name) to call synchronously.
         $childGreet = $child->greet($name);
 
         // Do something else here.

@@ -31,7 +31,7 @@ class ExecuteCommand extends Command
 
         $output->writeln("Starting <comment>ParentWorkflow</comment>... ");
 
-        $run = $this->workflowClient->start($workflow, 'World');
+        $run = $this->workflowClient->start($workflow);
 
         $output->writeln(
             sprintf(
